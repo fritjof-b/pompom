@@ -1,11 +1,8 @@
-// Make a get request for motivational quotes
-// def get(url: String): String = scala.io.Source.fromURL(url).mkString
-
 val DURATION = 25
 val SESSIONS = 4
 val BREAK_DURATION = 5
-// val SECONDS_PER_MINUTE = 60
-val SECONDS_PER_MINUTE = 1
+val SECONDS_PER_MINUTE = 60
+// val SECONDS_PER_MINUTE = 1
 
 object Pompom:
 
@@ -77,3 +74,6 @@ object Pompom:
         consumeArgList(map ++ Map("s" -> value.toInt), tail)
       case _ =>
         Map()
+
+
+  def get(url: String): String = scala.io.Source.fromURL(url).mkString
