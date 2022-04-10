@@ -1,4 +1,4 @@
-# Pompom
+# Pompom 🍎
 
 Requirements: `Scala 3`, `Sbt`
 
@@ -25,11 +25,11 @@ You can pass parameters to the program (session timer, break timer and number of
 Usage:
 [--d duration in minutes]
 [--b break duration in minutes]
-[--n number of sessions]
+[--s number of sessions]
 ```
 
 ### Example
 
 ```sh
-$ scala Pompom --d 45 --b 10 --n 4
+$ scala Pompom --d 45 --b 10 --s 4
 ```

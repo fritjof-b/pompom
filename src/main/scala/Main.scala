@@ -1,8 +1,8 @@
 val DURATION = 25
 val SESSIONS = 4
 val BREAK_DURATION = 5
-val SECONDS_PER_MINUTE = 60
-// val SECONDS_PER_MINUTE = 1
+// val SECONDS_PER_MINUTE = 60
+val SECONDS_PER_MINUTE = 1
 
 object Pompom:
 
@@ -32,23 +32,21 @@ object Pompom:
 
 
   def session(duration:Int, sessions:Int, interlude:Int): Unit =   
-
     for session <- 1 to sessions do
-      println(s"Session ${session} out of ${sessions} started.\n")
     
+      // Loop for a session in minutes, then take break
       for minute <- 0 until duration do
         oneMinute()
-        progressBar(minute, duration)
-    
-      println()
+        progressBar(f"Session $session", minute, duration)
 
-      if session < sessions then
-        println("Session completed - time for a break.")
-      else
+      // We take a break here
+      if session != sessions then
+        for minute <- 0 until interlude do
+          oneMinute()
+          print(s"\rPause: ${interlude-minute} minutes left")
+      
+      if session == sessions then
         println("All sessions completed.")
-
-      for _ <- 1 to interlude do
-        tick()
 
       
   def tick(verbose: Boolean = false): Unit =
@@ -59,8 +57,9 @@ object Pompom:
     for _ <- 1 to SECONDS_PER_MINUTE do
       tick()
 
-  def progressBar(fill:Int, shrink:Int): Unit =
-    print(s"\r[${"-"*fill}>${"."*(shrink-fill-1)}]")
+  def progressBar(task:String, fill:Int, shrink:Int): Unit =
+    print(s"\r$task [${"-"*fill}>${"."*(shrink-fill-1)}]")
+    if shrink - fill - 1 == 0 then print(" ✔️\n")
 
 
   def consumeArgList(map:Map[String, Int], l:List[String]): Map[String, Int] =    
