@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 val DURATION = 25
 val SESSIONS = 4
 val BREAK_DURATION = 5
@@ -49,11 +51,11 @@ object Pompom:
         println("All sessions completed.")
 
       
-  def tick(verbose: Boolean = false): Unit =
+  private def tick(verbose: Boolean = false): Unit =
     if verbose then println("tick")
     Thread.sleep(1000)
 
-  def oneMinute(): Unit =
+  private def oneMinute(): Unit =
     for _ <- 1 to SECONDS_PER_MINUTE do
       tick()
 
@@ -62,7 +64,8 @@ object Pompom:
     if shrink - fill - 1 == 0 then print(" ✔️\n")
 
 
-  def consumeArgList(map:Map[String, Int], l:List[String]): Map[String, Int] =    
+  @tailrec
+  def consumeArgList(map:Map[String, Int], l:List[String]): Map[String, Int] =
     l match
       case Nil => map
       case "--d" :: value :: tail =>
@@ -75,4 +78,7 @@ object Pompom:
         Map()
 
 
-  def get(url: String): String = scala.io.Source.fromURL(url).mkString
+  def get(url: String): String =
+    val response = scala.io.Source.fromURL(url).mkString
+    response
+
